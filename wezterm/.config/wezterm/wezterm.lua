@@ -5,9 +5,10 @@ local wezterm = require 'wezterm'
 local config = wezterm.config_builder()
 
 config.enable_wayland = true
+local keys = require("keys")
 
-
-
+-- spawn in bash 
+config.default_prog = { '/usr/bin/bash', '-' }
 -- This is where you actually apply your config choices
 config.window_decorations = "RESIZE"
 config.enable_tab_bar = false
@@ -16,6 +17,7 @@ config.enable_tab_bar = false
 -- config.color_scheme = 'AdventureTime'
 
 config.default_cursor_style = 'SteadyBar'
+
 
 
 -- Define the Everforest theme
@@ -51,5 +53,9 @@ config.window_padding = {
   top = '0.2cell',
   bottom = '0.0cell',
 }
+
+keys.setup(config)
+
+
 -- and finally, return the configuration to wezterm
 return config
