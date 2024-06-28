@@ -14,6 +14,17 @@ alias exa='exa --color=always'
 alias ee='exa -alF --color=always'
 alias ea='exa -A --color=always'
 alias e='exa -xF --color=always'
+
+# fun alias/func 
+apt() {
+	if [[ $1 == "install" ]]; then
+		shift
+		sudo pacman -S "$@"
+	else
+		echo "apt command not supported"
+	fi
+}
+
 . "$HOME/.cargo/env"
 
 #PATH=$HOME/.cargo/bin:$PATH
@@ -27,3 +38,6 @@ export PATH="$PATH:/home/mark/.local/opt/go/bin/go"
 export PATH=$PATH:$HOME/go/bin
 export EDITOR=nvim
 export MCFLY_BASH_USE_TIOCSTI=1
+
+# Created by `pipx` on 2024-06-21 20:22:28
+export PATH="$PATH:/home/mark/.local/bin"
