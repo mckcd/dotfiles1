@@ -41,3 +41,6 @@ export MCFLY_BASH_USE_TIOCSTI=1
 
 # Created by `pipx` on 2024-06-21 20:22:28
 export PATH="$PATH:/home/mark/.local/bin"
+
+# Generated for envman. Do not edit.
+[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
