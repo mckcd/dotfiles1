@@ -5,15 +5,18 @@
 eval "$(starship init bash)"
 eval "$(mcfly init bash)"
 # some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
+# alias ll='ls -alF'
+# alias la='ls -A'
+# alias l='ls -CF'
 
+alias l='lsd'
 # for exa
 alias exa='exa --color=always'
 alias ee='exa -alF --color=always'
 alias ea='exa -A --color=always'
 alias e='exa -xF --color=always'
+# which alias to see more info about file
+alias wl='function _exl { which "$1" | xargs exa -l; };_exl' 
 
 # fun alias/func 
 apt() {
@@ -24,7 +27,14 @@ apt() {
 		echo "apt command not supported"
 	fi
 }
+# Nix profile initialization
+if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then
+    . "$HOME/.nix-profile/etc/profile.d/nix.sh"
+fi
 
+# Node.js and npm initialization
+# Ensure that npm global packages are added to the PATH
+export PATH="$PATH:$HOME/.npm-global/bin"
 . "$HOME/.cargo/env"
 
 #PATH=$HOME/.cargo/bin:$PATH
@@ -44,3 +54,4 @@ export PATH="$PATH:/home/mark/.local/bin"
 
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
+source /usr/share/nvm/init-nvm.sh
