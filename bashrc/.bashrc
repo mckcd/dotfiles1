@@ -1,4 +1,4 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
+# ~/.bushrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
@@ -8,6 +8,10 @@ eval "$(mcfly init bash)"
 # alias ll='ls -alF'
 # alias la='ls -A'
 # alias l='ls -CF'
+
+# nvim alias's
+alias n='nvim'
+alias ev='NVIM_APPNAME=ecosse3 nvim'
 
 alias l='lsd'
 # for exa
