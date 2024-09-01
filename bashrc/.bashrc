@@ -12,6 +12,8 @@ eval "$(mcfly init bash)"
 # nvim alias's
 alias n='nvim'
 alias ev='NVIM_APPNAME=ecosse3 nvim'
+alias lv='NVIM_APPNAME=lnvim nvim'
+alias cn='NVIM_APPNAME=cn nvim'
 
 alias l='lsd'
 # for exa

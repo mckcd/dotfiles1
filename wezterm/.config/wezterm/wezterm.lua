@@ -45,7 +45,7 @@ config.font = wezterm.font_with_fallback({
   "JetBrains Mono",
 })
 
-config.font_size = 12.0 -- Adjust the font size as needed
+config.font_size = 13.0 -- Adjust the font size as needed
 
 config.window_padding = {
   left = '0.2cell',
@@ -66,6 +66,14 @@ config.keys = {
         action = wezterm.action.SpawnTab "CurrentPaneDomain",
     },
     {
+        mods = "LEADER|SHIFT",
+        key = "%",
+        action = wezterm.action.SplitPane {
+		direction = 'Down',
+		size = { Percent = 20 },
+		}
+    },
+    {
         mods = "LEADER",
         key = "x",
         action = wezterm.action.CloseCurrentPane { confirm = true }
@@ -81,7 +89,7 @@ config.keys = {
         action = wezterm.action.ActivateTabRelative(1)
     },
     {
-        mods = "LEADER",
+        mods = "LEADER|SHIFT",
         key = "|",
         action = wezterm.action.SplitHorizontal { domain = "CurrentPaneDomain" }
     },
