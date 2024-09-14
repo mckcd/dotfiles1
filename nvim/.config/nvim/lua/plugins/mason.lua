@@ -12,7 +12,7 @@ return {
             -- Ensure mason-lspconfig is set up
             require("mason-lspconfig").setup({
                 -- List of servers to automatically install
-                ensure_installed = { "lua_ls", "rust_analyzer", "pylyzer", "html" },
+                ensure_installed = { "lua_ls", "rust_analyzer", "pylyzer", "html", "marksman" },
             })
             -- Set up LSP servers
             local lspconfig = require("lspconfig")
@@ -59,6 +59,7 @@ return {
             -- lspconfig.pyright.setup {}
             lspconfig.html.setup {}
             lspconfig.pylyzer.setup {}
+            lspconfig.marksman.setup {}
         end
     }
 }

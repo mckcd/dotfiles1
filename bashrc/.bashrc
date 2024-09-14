@@ -2,6 +2,18 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
+alias t='tldr'
+
+ts() {
+    tldr --list | grep -i "$1" | column
+}
+
+alias m='man'
+
+ms() {
+    man -k "$1" | column
+}
+
 eval "$(starship init bash)"
 eval "$(mcfly init bash)"
 # some more ls aliases
