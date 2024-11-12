@@ -1,65 +1,162 @@
 -- File: plugins/lsp_mason.lua
 return {
-    {
-        "neovim/nvim-lspconfig",
-        dependencies = {
-            "williamboman/mason.nvim",
-            "williamboman/mason-lspconfig.nvim",
-        },
-        config = function()
-            -- Ensure mason is set up
-            require("mason").setup()
-            -- Ensure mason-lspconfig is set up
-            require("mason-lspconfig").setup({
-                -- List of servers to automatically install
-                ensure_installed = { "lua_ls", "rust_analyzer", "pylyzer", "html", "marksman" },
-            })
-            -- Set up LSP servers
-            local lspconfig = require("lspconfig")
+	{
+		"neovim/nvim-lspconfig",
+		dependencies = {
+			"williamboman/mason.nvim",
+			"williamboman/mason-lspconfig.nvim",
+		},
+		config = function()
+			vim.cmd([[autocmd BufRead,BufNewFile */templates/*.html set filetype=html]])
+			-- Ensure mason is set up
+			require("mason").setup()
+			-- Ensure mason-lspconfig is set up
+			require("mason-lspconfig").setup({
+				-- List of servers to automatically install
+				ensure_installed = {
+					"gopls",
+					"lua_ls",
+					"rust_analyzer",
+					-- "pyright",
+					"html",
+					"marksman",
+					"bashls",
+					-- "jinja_lsp",
+					"zls",
+					-- "emmet_ls",
+					"basedpyright",
+                    "ruff"
+				},
+			})
+			local capabilities = require("cmp_nvim_lsp").default_capabilities()
+			-- Set up LSP servers
+			local lspconfig = require("lspconfig")
+			local util = require("lspconfig.util")
 
-            -- Example setups
-            lspconfig.lua_ls.setup({
-			settings  = {
-				Lua = {
-					diagnostics = {
-						global = { "vim" },
-					},
-					workspace = {
-						library = vim.api.nvim_get_runtime_file(" ", true),
-						checkThirdParty = false,
+			-- Example setups
+			lspconfig.lua_ls.setup({
+				settings = {
+					Lua = {
+						diagnostics = {
+							global = { "vim" },
 						},
-				}
-			}
-	    })
-            lspconfig.rust_analyzer.setup {
-			   settings = {
-        	["rust-analyzer"] = {
-            	assist = {
-                	importGranularity = "module",
-                	importPrefix = "by_self",
-            	},
-            	cargo = {
-                	allFeatures = true,
-                	loadOutDirsFromCheck = true,
-            	},
-            	checkOnSave = {
-                	command = "clippy"
-            	},
-            		procMacro = {
-                	enable = true
-            	},
-            	completion = {
-                	postfix = {
-                    	enable = true
-                			}
-            			}
-        		}
-    		}
-	}
-            -- lspconfig.pyright.setup {}
-            lspconfig.html.setup {}
-            lspconfig.pylyzer.setup {}
-            lspconfig.marksman.setup {}
-        end
-    }
+						workspace = {
+							library = vim.api.nvim_get_runtime_file(" ", true),
+							checkThirdParty = false,
+						},
+					},
+				},
+			})
+			lspconfig.rust_analyzer.setup({
+				settings = {
+					["rust-analyzer"] = {
+						assist = {
+							importGranularity = "module",
+							importPrefix = "by_self",
+						},
+						cargo = {
+							allFeatures = true,
+							loadOutDirsFromCheck = true,
+						},
+						checkOnSave = {
+							command = "clippy",
+						},
+						procMacro = {
+							enable = true,
+						},
+						completion = {
+							postfix = {
+								enable = true,
+							},
+						},
+					},
+				},
+			})
+			-- lspconfig.emmet_ls.setup({
+			-- 	-- on_attach = on_attach,
+			-- 	capabilities = capabilities,
+			-- 	filetypes = {
+			-- 		"css",
+			-- 		"eruby",
+			-- 		"html",
+			-- 		"javascript",
+			-- 		"javascriptreact",
+			-- 		"less",
+			-- 		"sass",
+			-- 		"scss",
+			-- 		"svelte",
+			-- 		"pug",
+			-- 		"typescriptreact",
+			-- 		"vue",
+			-- 	},
+			-- 	init_options = {
+			-- 		html = {
+			-- 			options = {
+			-- 				-- For possible options, see: https://github.com/emmetio/emmet/blob/master/src/config.ts#L79-L267
+			-- 				["bem.enabled"] = true,
+			-- 			},
+			-- 		},
+			-- 	},
+			-- })
+			-- lspconfig.html.setup {}
+			lspconfig.html.setup({
+				capabilities = capabilities,
+				cmd = { "vscode-html-language-server", "--stdio" },
+				filetypes = { "html", "templ" },
+				root_dir = util.root_pattern("package.json", ".git"),
+				single_file_support = true,
+				settings = {},
+				init_options = {
+					provideFormatter = true,
+					embeddedLanguages = { css = true, javascript = true, jinja = true },
+					configurationSection = { "html", "css", "javascript" },
+				},
+			})
+			-- lspconfig.jinja_lsp.setup({
+			-- 	name = "jinja_lsp",
+			-- 	cmd = { "jinja-lsp" },
+			-- 	single_file_support = true,
+			-- 	filetypes = { "jinja-html", "jinja" },
+			-- 	capabilities = capabilities,
+			-- 	root_dir = function(fname)
+			-- 		return require("lspconfig.util").find_git_ancestor(fname)
+			-- 			or require("lspconfig.util").root_pattern("templates", "jinja", "config.yaml", "project.toml")(
+			-- 				fname
+			-- 			)
+			-- 			or require("lspconfig.util").path.dirname(fname)
+			-- 	end,
+			-- })
+			lspconfig.pyright.setup({})
+			lspconfig.basedpyright.setup({
+				capabilities = capabilities,
+				settings = {
+					basedpyright = {
+						analysis = {
+							typeCheckingMode = "standard",
+							autoSearchPaths = true,
+							useLibraryCodeForTypes = true,
+						},
+					},
+				},
+			})
+			lspconfig.marksman.setup({ capabilities = capabilities })
+
+			lspconfig.bashls.setup({
+				capabilities = capabilities,
+				filetypes = { "sh" },
+				root_dir = util.find_git_ancestor,
+				single_file_support = true,
+				settings = {
+					bashIde = {
+						globPattern = vim.env.GLOB_PATTERN or "*@(.sh|.inc|.bash|.command)",
+					},
+				},
+			})
+
+			lspconfig.gopls.setup({ capabilities = capabilities })
+			lspconfig.zls.setup({ capabilities = capabilities })
+			-- lspconfig.ruff.setup({ capabilities = capabilities},
+			--          single_file_support = true,)
+		end,
+	},
 }
