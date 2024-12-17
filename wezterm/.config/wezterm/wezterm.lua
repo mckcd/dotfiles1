@@ -50,7 +50,7 @@ config.font = wezterm.font_with_fallback({
 	"JetBrains Mono",
 })
 
-config.font_size = 13.0 -- Adjust the font size as needed
+config.font_size = 15.0 -- Adjust the font size as needed
 
 config.window_padding = {
 	left = "0.2cell",
@@ -59,13 +59,14 @@ config.window_padding = {
 	bottom = "0.0cell",
 }
 
-config.max_fps=240
+config.max_fps = 240
 
 -- keys.setup(config)
 
 -- tmu
 config.leader = { key = "a", mods = "ALT", timeout_milliseconds = 2000 }
 config.keys = {
+	{ key = "Enter", mods = "ALT", action = wezterm.action.DisableDefaultAssignment },
 	{
 		mods = "LEADER",
 		key = "c",

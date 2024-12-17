@@ -24,6 +24,7 @@ eval "$(mcfly init bash)"
 # nvim alias's
 alias n='nvim'
 alias ev='NVIM_APPNAME=ecosse3 nvim'
+alias nv='NVIM_APPNAME=nvchad nvim'
 alias lv='NVIM_APPNAME=lnvim nvim'
 alias lz='NVIM_APPNAME=lvf nvim'
 alias cn='NVIM_APPNAME=cn nvim'
@@ -32,6 +33,8 @@ alias a='NVIM_APPNAME=astro nvim'
 alias st='NVIM_APPNAME=scratch nvim'
 alias launch='NVIM_APPNAME=launch nvim'
 alias cz='NVIM_APPNAME=zc nvim'
+alias jn='NVIM_APPNAME=nvim_java nvim'
+alias jim='NVIM_APPNAME=jim nvim'
 
 alias l='lsd'
 # for exa
@@ -94,3 +97,5 @@ source /usr/share/nvm/init-nvm.sh
 
 
 
+
+source /home/mark/.config/broot/launcher/bash/br

@@ -9,7 +9,7 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.mouse = "a"
 vim.opt.showmode = false
-vim.opt.clipboard = "unnamedplus"
+-- vim.opt.clipboard = "unnamedplus"
 vim.opt.breakindent = true
 vim.opt.undofile = true
 vim.opt.ignorecase = true
@@ -20,7 +20,7 @@ vim.opt.timeoutlen = 350
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 vim.opt.list = true
-vim.opt.listchars = { tab = "| ", trail = "·", nbsp = "␣" }
+vim.opt.listchars = { trail = "·", nbsp = "␣" }
 vim.opt.inccommand = "split"
 -- vim.opt.cursorline = f
 vim.opt.scrolloff = 999

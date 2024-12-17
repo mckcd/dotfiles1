@@ -25,7 +25,9 @@ return {
 					"zls",
 					-- "emmet_ls",
 					"basedpyright",
-                    "ruff"
+					"ruff",
+					"ts_ls",
+					"jdtls",
 				},
 			})
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -68,6 +70,11 @@ return {
 							postfix = {
 								enable = true,
 							},
+						},
+						inlayHints = {
+							typeHints = false, -- Explicitly disable type hints
+							parameterHints = false,
+							chainingHints = false,
 						},
 					},
 				},
@@ -155,6 +162,7 @@ return {
 
 			lspconfig.gopls.setup({ capabilities = capabilities })
 			lspconfig.zls.setup({ capabilities = capabilities })
+			lspconfig.jdtls.setup({ capabilities = capabilities })
 			-- lspconfig.ruff.setup({ capabilities = capabilities},
 			--          single_file_support = true,)
 		end,
