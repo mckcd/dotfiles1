@@ -1,17 +1,29 @@
 -- Pull in the wezterm API
 local wezterm = require("wezterm")
+local constants = require("constants")
 
 -- This will hold the configuration.
 local config = wezterm.config_builder()
+
+
+local function toggle_tab_bar(window, pane)
+  local config_overrides = window:get_config_overrides() or {}
+  config_overrides.enable_tab_bar = not config_overrides.enable_tab_bar
+  window:set_config_overrides(config_overrides)
+end
 
 config.enable_wayland = true
 -- local keys = require("keys")
 
 -- spawn in bash
 config.default_prog = { "/usr/bin/bash", "-" }
+
+
+
 -- This is where you actually apply your config choices
 config.window_decorations = "RESIZE"
 -- config.enable_tab_bar = false
+
 
 -- For example, changing the color scheme:
 -- config.color_scheme = 'AdventureTime'
@@ -41,16 +53,22 @@ config.colors = {
 	compose_cursor = "orange", -- Cursor color when the leader key is active
 }
 
-config.window_background_opacity = 0.8 -- Adjust the opacity level (0.0 to 1.0)
+-- config.window_background_opacity = 0.8 -- Adjust the opacity level (0.0 to 1.0)
 
 config.font = wezterm.font_with_fallback({
+    "DankMono Nerd Font",
+    "DankMono",
 	"Hurmit Nerd Font",
 	"Hurmit",
 	"Fira Code",
 	"JetBrains Mono",
 })
 
-config.font_size = 15.0 -- Adjust the font size as needed
+
+config.window_background_image = constants.bk_image
+print("Resoloved background image path: " .. constants.bk_image)
+
+config.font_size = 19.0 -- Adjust the font size as needed
 
 config.window_padding = {
 	left = "0.2cell",
@@ -71,6 +89,11 @@ config.keys = {
 		mods = "LEADER",
 		key = "c",
 		action = wezterm.action.SpawnTab("CurrentPaneDomain"),
+	},
+    {
+		mods = "LEADER",
+		key = "t",
+		action = wezterm.action_callback(toggle_tab_bar)
 	},
 	{
 		mods = "LEADER|SHIFT",

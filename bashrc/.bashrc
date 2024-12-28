@@ -23,19 +23,8 @@ eval "$(mcfly init bash)"
 
 # nvim alias's
 alias n='nvim'
-alias ev='NVIM_APPNAME=ecosse3 nvim'
-alias nv='NVIM_APPNAME=nvchad nvim'
-alias lv='NVIM_APPNAME=lnvim nvim'
-alias lz='NVIM_APPNAME=lvf nvim'
-alias cn='NVIM_APPNAME=cn nvim'
-alias nc='NVIM_APPNAME=nc nvim'
-alias a='NVIM_APPNAME=astro nvim'
-alias st='NVIM_APPNAME=scratch nvim'
-alias launch='NVIM_APPNAME=launch nvim'
-alias cz='NVIM_APPNAME=zc nvim'
-alias jn='NVIM_APPNAME=nvim_java nvim'
-alias jim='NVIM_APPNAME=jim nvim'
-
+alias fnh='nvim $(fzf -m --preview="bat --color=always {}")'
+alias fn='nvim $(fzf -m --preview="bat --color=always {}" --no-hidden)'
 alias l='lsd'
 # for exa
 alias exa='exa --color=always'
@@ -68,7 +57,11 @@ export PATH="$PATH:$HOME/.npm-global/bin"
 #PATH=$HOME/.cargo/bin:$PATH
 export PATH="/home/mark/appimages/Obsidian:$PATH"
 
+
 eval "$(zoxide init bash)"
+
+# Set up fzf key bindings and fuzzy completion
+eval "$(fzf --bash)"
 
 alias ipad='ip -c=auto address'
 # Exec=/opt/zen-browser-bin/zen-bin %u
@@ -76,13 +69,14 @@ export PATH="$PATH:/home/mark/.local/opt/go/bin/go"
 export PATH="$PATH:/opt/zen-brower-bin/zen-bin"
 export PATH=$PATH:$HOME/go/bin
 export EDITOR=nvim
+export BROWSER=zen-beta
 export MCFLY_BASH_USE_TIOCSTI=1
 export PATH="$PATH:/home/mark/bash_scripts"
 export PATH="$PATH:/home/mark/.modular/bin"
 # Created by `pipx` on 2024-06-21 20:22:28
 export PATH="$PATH:/home/mark/.local/bin"
-# export MANPAGER="less -R -Dd+r -Du+b"
-export MANPAGER="sh -c 'col -bx | bat --paging=always --language=man'"
+export MANPAGER="less -R -Dd+r -Du+b"
+# export MANPAGER="sh -c 'col -bx | bat --paging=always --language=man --plain'"
 for dir in $(find ~/app_images/ -type d); do
 	PATH="$PATH:$dir"
 done
@@ -95,7 +89,8 @@ export ANTHROPIC_API_KEY="sk-ant-api03--IJXUGj5hiaONR7DkUUdNweTk1CRzLIkH7zHMAMBQ
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 source /usr/share/nvm/init-nvm.sh
 
-
+export QT_PLUGIN_PATH="/lib/qt/plugins/styles:$QT_PLUGIN_PATH"
+export QT_PLUGIN_PATH="/lib/qt6/plugins/styles:$QT_PLUGIN_PATH"
 
 
 source /home/mark/.config/broot/launcher/bash/br

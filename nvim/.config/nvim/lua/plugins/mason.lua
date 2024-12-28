@@ -5,6 +5,7 @@ return {
 		dependencies = {
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
+			"saghen/blink.cmp",
 		},
 		config = function()
 			vim.cmd([[autocmd BufRead,BufNewFile */templates/*.html set filetype=html]])
@@ -28,15 +29,18 @@ return {
 					"ruff",
 					"ts_ls",
 					"jdtls",
+					"clangd",
 				},
 			})
-			local capabilities = require("cmp_nvim_lsp").default_capabilities()
+			-- local capabilities = require("cmp_nvim_lsp").default_capabilities()
+			local capabilities = require("blink.cmp").get_lsp_capabilities()
 			-- Set up LSP servers
 			local lspconfig = require("lspconfig")
 			local util = require("lspconfig.util")
 
 			-- Example setups
 			lspconfig.lua_ls.setup({
+				capabilities = capabilities,
 				settings = {
 					Lua = {
 						diagnostics = {
@@ -50,6 +54,7 @@ return {
 				},
 			})
 			lspconfig.rust_analyzer.setup({
+				capabilities = capabilities,
 				settings = {
 					["rust-analyzer"] = {
 						assist = {
@@ -133,7 +138,7 @@ return {
 			-- 			or require("lspconfig.util").path.dirname(fname)
 			-- 	end,
 			-- })
-			lspconfig.pyright.setup({})
+			-- lspconfig.pyright.setup({})
 			lspconfig.basedpyright.setup({
 				capabilities = capabilities,
 				settings = {
@@ -147,6 +152,7 @@ return {
 				},
 			})
 			lspconfig.marksman.setup({ capabilities = capabilities })
+			lspconfig.clangd.setup({ capabilities = capabilities })
 
 			lspconfig.bashls.setup({
 				capabilities = capabilities,
