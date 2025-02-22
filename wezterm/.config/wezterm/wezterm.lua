@@ -5,25 +5,23 @@ local constants = require("constants")
 -- This will hold the configuration.
 local config = wezterm.config_builder()
 
+config.enable_wayland = true
+-- config.front_end = "WebGpu"
 
 local function toggle_tab_bar(window, pane)
-  local config_overrides = window:get_config_overrides() or {}
-  config_overrides.enable_tab_bar = not config_overrides.enable_tab_bar
-  window:set_config_overrides(config_overrides)
+	local config_overrides = window:get_config_overrides() or {}
+	config_overrides.enable_tab_bar = not config_overrides.enable_tab_bar
+	window:set_config_overrides(config_overrides)
 end
 
-config.enable_wayland = true
 -- local keys = require("keys")
 
 -- spawn in bash
 config.default_prog = { "/usr/bin/bash", "-" }
 
-
-
 -- This is where you actually apply your config choices
 config.window_decorations = "RESIZE"
 -- config.enable_tab_bar = false
-
 
 -- For example, changing the color scheme:
 -- config.color_scheme = 'AdventureTime'
@@ -56,14 +54,13 @@ config.colors = {
 -- config.window_background_opacity = 0.8 -- Adjust the opacity level (0.0 to 1.0)
 
 config.font = wezterm.font_with_fallback({
-    "DankMono Nerd Font",
-    "DankMono",
+	"DankMono Nerd Font",
+	"DankMono",
 	"Hurmit Nerd Font",
 	"Hurmit",
 	"Fira Code",
 	"JetBrains Mono",
 })
-
 
 config.window_background_image = constants.bk_image
 print("Resoloved background image path: " .. constants.bk_image)
@@ -90,10 +87,11 @@ config.keys = {
 		key = "c",
 		action = wezterm.action.SpawnTab("CurrentPaneDomain"),
 	},
-    {
+	{
 		mods = "LEADER",
+		description = "toggle_tab_bar",
 		key = "t",
-		action = wezterm.action_callback(toggle_tab_bar)
+		action = wezterm.action_callback(toggle_tab_bar),
 	},
 	{
 		mods = "LEADER|SHIFT",
@@ -172,6 +170,11 @@ config.keys = {
 		mods = "LEADER",
 		key = "w",
 		action = wezterm.action.ActivateCommandPalette,
+	},
+	{
+		mods = "LEADER",
+		key = "u",
+		action = wezterm.action.CharSelect,
 	},
 }
 

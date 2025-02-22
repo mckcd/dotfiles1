@@ -4,6 +4,7 @@ return {
 		formatters_by_ft = {
 			lua = { "stylua" },
 			python = { "isort", "black" },
+			go = { "gofmt" },
 		},
 	},
 	config = function(_, opts)

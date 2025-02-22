@@ -7,6 +7,11 @@ return {
 			"williamboman/mason-lspconfig.nvim",
 			"saghen/blink.cmp",
 		},
+		opts = {
+			document_highlight = {
+				enable = false,
+			},
+		},
 		config = function()
 			vim.cmd([[autocmd BufRead,BufNewFile */templates/*.html set filetype=html]])
 			-- Ensure mason is set up
@@ -30,10 +35,12 @@ return {
 					"ts_ls",
 					"jdtls",
 					"clangd",
+					"ols",
 				},
 			})
 			-- local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			local capabilities = require("blink.cmp").get_lsp_capabilities()
+
 			-- Set up LSP servers
 			local lspconfig = require("lspconfig")
 			local util = require("lspconfig.util")
@@ -41,6 +48,7 @@ return {
 			-- Example setups
 			lspconfig.lua_ls.setup({
 				capabilities = capabilities,
+				documentHighlightProvider = false,
 				settings = {
 					Lua = {
 						diagnostics = {
@@ -151,17 +159,24 @@ return {
 					},
 				},
 			})
-			lspconfig.marksman.setup({ capabilities = capabilities })
+			lspconfig.marksman.setup({
+				capabilities = capabilities,
+				filetypes = { "markdown", "md" },
+				single_file_support = true,
+			})
+
 			lspconfig.clangd.setup({ capabilities = capabilities })
+			lspconfig.ols.setup({ capabilities = capabilities })
 
 			lspconfig.bashls.setup({
 				capabilities = capabilities,
 				filetypes = { "sh" },
-				root_dir = util.find_git_ancestor,
+				-- root_dir = util.find_git_ancestor,
 				single_file_support = true,
 				settings = {
 					bashIde = {
 						globPattern = vim.env.GLOB_PATTERN or "*@(.sh|.inc|.bash|.command)",
+						shellcheckAguments = { "--extened-analysis=false" },
 					},
 				},
 			})
